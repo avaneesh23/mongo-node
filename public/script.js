@@ -57,10 +57,7 @@ scotchApp.controller('getLocation', function($scope, $http) {
     {
         if (navigator.geolocation)
         {
-            navigator.geolocation.getCurrentPosition(function (err,pos) {
-                $scope.showPosition(pos);
-                $scope.showError(err);
-            });
+            navigator.geolocation.getCurrentPosition($scope.showPosition,$scope.showError);
         }
         else
         {
