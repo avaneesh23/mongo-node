@@ -1,0 +1,44 @@
+.navbar-custom
+{
+    color: white;
+    font-weight: bold;
+    font-size: large;
+    background:lightskyblue;
+}
+
+.navbar-fixed-top
+{
+    height: 60px;
+}
+
+html,body,#map { height: 100%; }
+
+.table
+{
+    table-border-color-dark: turquoise;
+}
+
+
+.btn {
+    border: 0 none;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.btn:focus, .btn:active:focus, .btn.active:focus {
+    outline: 0 none;
+}
+
+.btn-primary {
+    background: lightskyblue;
+}
+
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open > .dropdown-toggle.btn-primary {
+    background: lightskyblue;
+    color: gray;
+}
+
+.btn-primary:active, .btn-primary.active {
+    background: lightskyblue;
+    box-shadow: none;
+}
