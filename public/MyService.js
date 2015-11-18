@@ -1,5 +1,5 @@
 
-app.factory("MyService", function ($http, $location, $interval) {
+scotchApp.factory("MyService", function ($http, $location, $interval) {
 
     var login = function (user, callback) {
         $http.post("/login", user)

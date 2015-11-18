@@ -1,4 +1,4 @@
-app.controller("LoginCtrl", function ($scope, $location, MyService) {
+scotchApp.controller("LoginCtrl", function ($scope, $location, MyService) {
     $scope.login = function () {
         MyService.login($scope.loginUser, function (res) {
             if (res == 'Error') { alert("System Error") }
