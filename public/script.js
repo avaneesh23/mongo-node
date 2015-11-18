@@ -23,7 +23,13 @@ scotchApp.config(function($routeProvider) {
         .when('/contact', {
             templateUrl : 'pages/contact.html',
             controller  : 'contactController'
-        });
+        }) .when('/login', {
+        templateUrl : 'pages/login.html',
+        controller  : 'LoginCtrl'
+    }) .when('/register', {
+        templateUrl : 'pages/login.html',
+        controller  : 'LoginCtrl'
+    });
 });
 
 // create the controller and inject Angular's $scope
