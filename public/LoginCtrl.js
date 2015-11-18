@@ -5,7 +5,7 @@ scotchApp.controller("LoginCtrl", function ($scope, $location, MyService) {
             if (res == null) { alert("Incrrect details") }
             else {
                 alert("logged in");
-                $location.url("/home");
+                $location.url("/");
             }
         })
 
@@ -17,7 +17,7 @@ scotchApp.controller("LoginCtrl", function ($scope, $location, MyService) {
                 if (res == 'Error') { alert("System Error") }
                 else {
                     alert("logged in");
-                    $location.url("/home");
+                    $location.url("/");
                 }
             });
         } else {
