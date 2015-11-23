@@ -2,7 +2,7 @@ scotchApp.controller("LoginCtrl", function ($scope, $location, MyService) {
     $scope.login = function () {
         MyService.login($scope.loginUser, function (res) {
             if (res == 'Error') { alert("System Error") }
-            if (res == null) { alert("Incrrect details") }
+            if (res == null) { alert("Incorrect details") }
             else {
                 alert("logged in");
                 $location.url("/");

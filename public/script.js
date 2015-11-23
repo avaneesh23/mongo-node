@@ -46,21 +46,23 @@ scotchApp.controller('contactController', function($scope) {
     $scope.message = 'Contact us! JK. This is just a demo.';
 });
 
-scotchApp.controller('getLocation', function($scope, $http) {
+scotchApp.controller('getLocation', function($scope, $http, NgMap) {
 
-        google.maps.event.trigger(map, "resize");
+        //google.maps.event.trigger(map, "resize");
 
         $scope.userlat = "0",
         $scope.userlong = "0",
         $scope.error = "",
         $scope.visibility = false,
-        //  $scope.searchQuery = "Boston",
+        $scope.searchQuery = "",
+        $scope.where = "",
         $scope.apiKey = "rcnxbzfT3dLNF3ff",
         $scope.url = "";
     //  $scope.url = "http://api.eventful.com/json/events/search?app_key="+$scope.apiKey+"&keywords=books&location="+$scope.searchQuery+"&date=Future";
 
     $scope.init = function()
     {
+        //google.maps.event.trigger(map, "resize");
         if (navigator.geolocation)
         {
             navigator.geolocation.getCurrentPosition($scope.showPosition,$scope.showError);
@@ -75,7 +77,8 @@ scotchApp.controller('getLocation', function($scope, $http) {
     {
         $scope.userlat = position.coords.latitude;
         $scope.userlong = position.coords.longitude;
-        $scope.url = "http://api.eventful.com/json/events/search?app_key="+$scope.apiKey+"&where="+$scope.userlat+","+$scope.userlong+"&within=5&units=mi&date=Future&page_size=10";
+        $scope.where = $scope.userlat+","+$scope.userlong;
+        $scope.url = "http://api.eventful.com/json/events/search?app_key="+$scope.apiKey+"&where="+$scope.where+"&within=5&units=mi&date=Future&page_size=10";
         $scope.show();
         $scope.$apply();
 
@@ -84,20 +87,43 @@ scotchApp.controller('getLocation', function($scope, $http) {
     $scope.showError = function (error) {
         switch (error.code) {
             case error.PERMISSION_DENIED:
-                $scope.error = "User denied the request for Geolocation."
+                $scope.error = "User denied the request for Geolocation.";
                 break;
             case error.POSITION_UNAVAILABLE:
-                $scope.error = "Location information is unavailable."
+                $scope.error = "Location information is unavailable.";
                 break;
             case error.TIMEOUT:
-                $scope.error = "The request to get user location timed out."
+                $scope.error = "The request to get user location timed out.";
                 break;
             case error.UNKNOWN_ERROR:
-                $scope.error = "An unknown error occurred."
+                $scope.error = "An unknown error occurred.";
                 break;
         }
         $scope.$apply();
     }
+
+    NgMap.getMap().then(function(map) {
+        //console.log('map', map);
+        $scope.map = map;
+    });
+
+    $scope.clickEventInfo = function(event, e) {
+        //alert("here"+JSON.stringify(e));
+        $scope.mapEvent = e;
+        $scope.map.showInfoWindow('map-event');
+    };
+
+    $scope.hideDetail = function() {
+        $scope.map.hideInfoWindow('map-event');
+    };
+
+    $scope.search = function()
+    {
+        //alert("searching..");
+        $scope.where = $scope.searchQuery;
+        $scope.url = "http://api.eventful.com/json/events/search?app_key="+$scope.apiKey+"&where="+$scope.where+"&within=5&units=mi&date=Future&page_size=10";
+        $scope.show();
+    };
 
     $scope.show = function()
     {
@@ -127,7 +153,6 @@ scotchApp.controller('getLocation', function($scope, $http) {
                     {
                         eventObj.image = $scope.eventData.events.event[j].image.small.url;
                     }
-
 
                     $scope.eventDetails.push(eventObj);
                 }
