@@ -46,23 +46,36 @@ scotchApp.controller('contactController', function($scope) {
     $scope.message = 'Contact us! JK. This is just a demo.';
 });
 
+<<<<<<< HEAD
+scotchApp.controller('getLocation', function($scope, $http) {
+
+        google.maps.event.trigger(map, "resize");
+=======
 scotchApp.controller('getLocation', function($scope, $http, NgMap) {
 
         //google.maps.event.trigger(map, "resize");
+>>>>>>> 8c91dd354b1c6e2f81fc1766bd88358976682813
 
         $scope.userlat = "0",
         $scope.userlong = "0",
         $scope.error = "",
         $scope.visibility = false,
+<<<<<<< HEAD
+        //  $scope.searchQuery = "Boston",
+=======
         $scope.searchQuery = "",
         $scope.where = "",
+>>>>>>> 8c91dd354b1c6e2f81fc1766bd88358976682813
         $scope.apiKey = "rcnxbzfT3dLNF3ff",
         $scope.url = "";
     //  $scope.url = "http://api.eventful.com/json/events/search?app_key="+$scope.apiKey+"&keywords=books&location="+$scope.searchQuery+"&date=Future";
 
     $scope.init = function()
     {
+<<<<<<< HEAD
+=======
         //google.maps.event.trigger(map, "resize");
+>>>>>>> 8c91dd354b1c6e2f81fc1766bd88358976682813
         if (navigator.geolocation)
         {
             navigator.geolocation.getCurrentPosition($scope.showPosition,$scope.showError);
@@ -77,8 +90,12 @@ scotchApp.controller('getLocation', function($scope, $http, NgMap) {
     {
         $scope.userlat = position.coords.latitude;
         $scope.userlong = position.coords.longitude;
+<<<<<<< HEAD
+        $scope.url = "http://api.eventful.com/json/events/search?app_key="+$scope.apiKey+"&where="+$scope.userlat+","+$scope.userlong+"&within=5&units=mi&date=Future&page_size=10";
+=======
         $scope.where = $scope.userlat+","+$scope.userlong;
         $scope.url = "http://api.eventful.com/json/events/search?app_key="+$scope.apiKey+"&where="+$scope.where+"&within=5&units=mi&date=Future&page_size=10";
+>>>>>>> 8c91dd354b1c6e2f81fc1766bd88358976682813
         $scope.show();
         $scope.$apply();
 
@@ -87,6 +104,18 @@ scotchApp.controller('getLocation', function($scope, $http, NgMap) {
     $scope.showError = function (error) {
         switch (error.code) {
             case error.PERMISSION_DENIED:
+<<<<<<< HEAD
+                $scope.error = "User denied the request for Geolocation."
+                break;
+            case error.POSITION_UNAVAILABLE:
+                $scope.error = "Location information is unavailable."
+                break;
+            case error.TIMEOUT:
+                $scope.error = "The request to get user location timed out."
+                break;
+            case error.UNKNOWN_ERROR:
+                $scope.error = "An unknown error occurred."
+=======
                 $scope.error = "User denied the request for Geolocation.";
                 break;
             case error.POSITION_UNAVAILABLE:
@@ -97,11 +126,14 @@ scotchApp.controller('getLocation', function($scope, $http, NgMap) {
                 break;
             case error.UNKNOWN_ERROR:
                 $scope.error = "An unknown error occurred.";
+>>>>>>> 8c91dd354b1c6e2f81fc1766bd88358976682813
                 break;
         }
         $scope.$apply();
     }
 
+<<<<<<< HEAD
+=======
     NgMap.getMap().then(function(map) {
         //console.log('map', map);
         $scope.map = map;
@@ -125,6 +157,7 @@ scotchApp.controller('getLocation', function($scope, $http, NgMap) {
         $scope.show();
     };
 
+>>>>>>> 8c91dd354b1c6e2f81fc1766bd88358976682813
     $scope.show = function()
     {
         $scope.visibility = true;
@@ -154,6 +187,10 @@ scotchApp.controller('getLocation', function($scope, $http, NgMap) {
                         eventObj.image = $scope.eventData.events.event[j].image.small.url;
                     }
 
+<<<<<<< HEAD
+
+=======
+>>>>>>> 8c91dd354b1c6e2f81fc1766bd88358976682813
                     $scope.eventDetails.push(eventObj);
                 }
           //  }
@@ -161,4 +198,8 @@ scotchApp.controller('getLocation', function($scope, $http, NgMap) {
         });
     };
 
+<<<<<<< HEAD
 });
+=======
+});
+>>>>>>> 8c91dd354b1c6e2f81fc1766bd88358976682813
