@@ -5,8 +5,12 @@
 
 <head>
     <!-- SCROLLS -->
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.css" />
+    <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.css"/>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"
+            integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ=="
+            crossorigin="anonymous"></script>
 
     <!-- SPELLS -->
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular.min.js"></script>
@@ -16,31 +20,77 @@
     <script src="./script.js"></script>
     <script src="MyService.js"></script>
     <script src="LoginCtrl.js"></script>
-
+    <script src="mainController.js"></script>
     <link rel="stylesheet" type="text/css" href="./styles/wham.css">
 </head>
 
 <!-- define angular controller -->
 <body ng-controller="mainController">
 
-<nav class="navbar navbar-default navbar-fixed-top navbar-custom">
-    <div class="container">
-        <div class="navbar-header">
-            <a class="navbar-brand" href="/">What's Happening Around Me!</a>
-      </div>
+<div class="navbar navbar-fixed-top ">
+    <div class="navbar-inner">
+        <div class="container-fluid" style="width: auto;">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="/">What's Happening Around Me!</a>
+            </div>
 
-        <ul class="nav navbar-nav navbar-right">
-            <li><a href="#"><i class="fa fa-home"></i> Home</a></li>
-            <li><a href="#about"><i class="fa fa-shield"></i> About</a></li>
-            <li><a href="#contact"><i class="fa fa-comment"></i> Contact</a></li>
-            <li><a href="#login"><i class="fa fa-sign-in"></i> Sign In</a></li>
-            <li><a href="#register"><i class="fa fa-pencil"></i> Sign Up</a></li>
-        </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#"><i class="fa fa-home"></i> Home</a></li>
+                <li><a href="#about"><i class="fa fa-shield"></i> About</a></li>
+                <li><a href="#contact"><i class="fa fa-comment"></i> Contact</a></li>
+                <!--<li><a href="#login"><i class="fa fa-sign-in"></i> Sign In</a></li>-->
+
+                <li class="dropdown" id="menu1">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#menu1"><b>Login</b> <span
+                            class="caret"></span></a>
+                    <ul id="login-dp" class="dropdown-menu">
+                        <li>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    Login via
+                                    <div class="social-buttons">
+                                        <a href="#" class="btn btn-fb"><i class="fa fa-facebook"></i> Facebook</a>
+                                    </div>
+                                    or
+                                    <form class="form" role="form" accept-charset="UTF-8"
+                                          id="login-nav">
+                                        <div class="form-group">
+                                            <input type="email" class="form-control" id="username"
+                                                   ng-model="user.email" placeholder="Email address" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="password" class="form-control" id="password"
+                                                   ng-model="user.password" placeholder="Password" required>
+
+                                            <div class="help-block text-right"><a href="">Forgot password ?</a></div>
+                                        </div>
+                                        <div class="form-group">
+                                            <button type="submit" class="btn btn-primary btn-block" ng-click="login()">
+                                                Sign in
+                                            </button>
+                                        </div>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox"> keep me logged-in
+                                            </label>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="bottom text-center">
+                                    New here ?
+                                    <button type="button" ng-click="signup()"><b>Join Us</b></button>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
     </div>
-</nav>
+</div>
 
 <nav class="navbar navbar-default navbar-custom">
-    <div class="container">
+    <div class="container-fluid">
         <div class="navbar-header">
             <a class="navbar-brand" href="/"></a>
         </div>
@@ -60,5 +110,9 @@
 </footer>
 
 </body>
-
+<script>
+    $(document).ready(function () {
+        $('.dropdown-toggle').dropdown();
+    });
+</script>
 </html>

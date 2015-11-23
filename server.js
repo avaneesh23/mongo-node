@@ -53,10 +53,12 @@ passport.use('Authentication', new LocalStrategy({
         UserProfileModel.findOne({ email: email, password: password }, function (err, user) {
             if (user != null) {
                 if (err) {
-                    res.send("Error");
+                    return done("Error");
                 } else {
                     return done(null, user);
                 }
+            }else {
+                return done("Error");
             }
         });
 

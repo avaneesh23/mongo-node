@@ -2,10 +2,13 @@
 scotchApp.factory("MyService", function ($http, $location, $interval) {
 
     var login = function (user, callback) {
+        console.log("service "+user);
         $http.post("/login", user)
             .success(function (res) {
-
                 callback(res);
+            })
+            .error(function (res) {
+                callback(null);
             })
     };
 
