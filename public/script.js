@@ -44,13 +44,15 @@ scotchApp.controller('contactController', function ($scope) {
 scotchApp.controller('getLocation', function ($scope, $http, NgMap) {
 
     //google.maps.event.trigger(map, "resize");
-
+    $scope.gPlace,
     $scope.userlat = "0",
     $scope.userlong = "0",
     $scope.error = "",
     $scope.visibility = false,
     $scope.searchQuery = "",
     $scope.category = "",
+    $scope.sortOptions = ["Popularity","Date","Relevance"],
+    $scope.sortOrder = "Popularity",
     $scope.where = "",
     $scope.apiKey = "rcnxbzfT3dLNF3ff",
     $scope.url = "";
@@ -70,7 +72,7 @@ scotchApp.controller('getLocation', function ($scope, $http, NgMap) {
         $scope.userlat = position.coords.latitude;
         $scope.userlong = position.coords.longitude;
         $scope.where = $scope.userlat + "," + $scope.userlong;
-        $scope.url = "http://api.eventful.com/json/events/search?app_key=" + $scope.apiKey + "&category=" + $scope.category.id + "&where=" + $scope.where + "&within=5&units=mi&date=Future&page_size=10&include=categories,price,links";
+        $scope.url = "http://api.eventful.com/json/events/search?app_key=" + $scope.apiKey + "&category=" + $scope.category.id + "&where=" + $scope.where + "&within=10&units=mi&date=Future&page_size=50&include=categories,price,links&sort_order=" + $scope.sortOrder;
         $scope.categoryUrl = "http://api.eventful.com/json/categories/list?app_key=" + $scope.apiKey;
         $scope.showCategories();
         $scope.show();
@@ -130,7 +132,7 @@ scotchApp.controller('getLocation', function ($scope, $http, NgMap) {
                 $scope.where = $scope.userlat + "," + $scope.userlong;
 
             //alert(typeof $scope.searchQuery);
-            $scope.url = "http://api.eventful.com/json/events/search?app_key=" + $scope.apiKey + "&category=" + $scope.category.id + "&where=" + $scope.where + "&within=5&units=mi&date=Future&page_size=10&include=categories,price,links";
+            $scope.url = "http://api.eventful.com/json/events/search?app_key=" + $scope.apiKey + "&category=" + $scope.category.id + "&where=" + $scope.where + "&within=10&units=mi&date=Future&page_size=50&include=categories,price,links&sort_order=" + $scope.sortOrder;
             //alert($scope.url);
             $scope.show();
         };
@@ -149,6 +151,8 @@ scotchApp.controller('getLocation', function ($scope, $http, NgMap) {
                     eventObj.url = $scope.eventData.events.event[j].url;
                     eventObj.title = $scope.eventData.events.event[j].title;
                     eventObj.desc = $scope.eventData.events.event[j].description;
+                    if(eventObj.desc == null)
+                        eventObj.desc = "There is no description for this event."
                     eventObj.start_time = $scope.eventData.events.event[j].start_time;
                     eventObj.stop_time = $scope.eventData.events.event[j].stop_time;
                     eventObj.venue_name = $scope.eventData.events.event[j].venue_name;
@@ -156,10 +160,15 @@ scotchApp.controller('getLocation', function ($scope, $http, NgMap) {
                     eventObj.city = $scope.eventData.events.event[j].city_name;
                     eventObj.latitude = $scope.eventData.events.event[j].latitude;
                     eventObj.longitude = $scope.eventData.events.event[j].longitude;
-                    eventObj.image = "images/not-available.gif";
-                    if ($scope.eventData.events.event[j].image != null) {
-                        eventObj.image = $scope.eventData.events.event[j].image.small.url;
+                    eventObj.image = "images/default_image.png";
+                    eventObj.price = "Free";
+                    if($scope.eventData.events.event[j].price != null){
+                        eventObj.price = "$ " + $scope.eventData.events.event[j].price;
                     }
+                    if ($scope.eventData.events.event[j].image != null) {
+                        eventObj.image = $scope.eventData.events.event[j].image.medium.url;
+                    }
+                    eventObj.categories = $scope.eventData.events.event[j].categories.category;
 
                     $scope.eventDetails.push(eventObj);
                 }
@@ -174,4 +183,23 @@ scotchApp.filter('ampersand', function(){
     return function(input){
         return input ? input.replace(/&amp;/, '&') : '';
     }
+});
+
+scotchApp.directive('googleplace', function() {
+    return {
+        require: 'ngModel',
+        link: function(scope, element, attrs, model) {
+            var options = {
+                types: [],
+                componentRestrictions: {}
+            };
+            scope.gPlace = new google.maps.places.Autocomplete(element[0], options);
+
+            google.maps.event.addListener(scope.gPlace, 'place_changed', function() {
+                scope.$apply(function() {
+                    model.$setViewValue(element.val());
+                });
+            });
+        }
+    };
 });
