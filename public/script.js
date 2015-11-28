@@ -203,3 +203,9 @@ scotchApp.directive('googleplace', function() {
         }
     };
 });
+
+scotchApp.filter('dateInMillis', function() {
+    return function(dateString) {
+        return Date.parse(dateString);
+    };
+});

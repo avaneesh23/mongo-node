@@ -64,16 +64,16 @@
                     </td>
                     <td style="width: 75%">
                         <h4> <a href=""> {{ event.title }} </a></h4>
-                        <div>Venue: {{ event.venue_name }}</div>
+                        <div><i class="fa fa-location-arrow"></i> &nbsp; {{ event.venue_name }}</div>
                         <div>
-                            <span> {{ event.start_time }} </span>
-                            <span style="padding-left: 45%">
+                            <span> <i class="fa fa-calendar"></i> &nbsp; {{ event.start_time | dateInMillis | date: 'EEE, MMM dd yyyy, h:mm a'}} </span>
+                            <span style="padding-left: 200px;">
                                 <span><a href=""><i class="fa fa-thumbs-o-up fa-2x"></i></a></span>
                                 &nbsp;&nbsp;&nbsp;
                                 <span><a href=""><i class="fa fa-thumbs-o-down fa-2x"></i></a></span>
                             </span>
                         </div>
-                        <div class="label label-success"> {{event.price}} </div>
+                        <div style="padding-top: 5px;"><span class="label label-success"> {{event.price}} </span></div>
                         <div><span ng-repeat="cat in event.categories"><span class="label label-primary">{{cat.name | ampersand}}</span>   </span></div>
                     </td>
                     <!--<td style="width: 30%"> <br> <span> Where: {{ event.venue_name }} <hr style="margin-top: 10px; margin-bottom: 10px;"> {{ event.start_time }} </span> </td>-->
