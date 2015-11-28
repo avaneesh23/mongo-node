@@ -46,28 +46,28 @@ html,body,#map { height: 100%; }
 
 /*LOGIN CSS*/
 
-#login-dp{
+.login-dp{
     min-width: 250px;
     padding: 14px 14px 0;
     overflow:hidden;
     background-color:rgba(255,255,255,.8);
 }
-#login-dp .help-block{
+.login-dp .help-block{
     font-size:12px
 }
-#login-dp .bottom{
+.login-dp .bottom{
     background-color:rgba(255,255,255,.8);
     border-top:1px solid #ddd;
     clear:both;
     padding:14px;
 }
-#login-dp .social-buttons{
+.login-dp .social-buttons{
     margin:12px 0
 }
-#login-dp .social-buttons a{
+.login-dp .social-buttons a{
     width: 49%;
 }
-#login-dp .form-group {
+.login-dp .form-group {
     margin-bottom: 10px;
 }
 .btn-fb{
@@ -87,12 +87,29 @@ html,body,#map { height: 100%; }
     background-color:#59b5fa;
 }
 @media(max-width:768px){
-    #login-dp{
+    .login-dp{
         background-color: inherit;
         color: #fff;
     }
-    #login-dp .bottom{
+    .login-dp .bottom{
         background-color: inherit;
         border-top:0 none;
     }
+}
+tr {
+    cursor: pointer;
+}
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
+    background: lightskyblue;
 }

@@ -9,7 +9,7 @@ var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var cookieParser = require('cookie-parser');
 var session = require('express-session');
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());   //for parsing application/json
 
 app.use(multer()); // for parsing multipart/form-data
@@ -40,24 +40,27 @@ var UserProfileSchema = new mongoose.Schema({
     email: String,
     password: String,
     firstname: String,
+
     lastname: String
-}, { collection: "UserProfile" });
+}, {collection: "UserProfile"});
 
 var UserProfileModel = mongoose.model("UserProfileModel", UserProfileSchema);
 
 passport.use('Authentication', new LocalStrategy({
-    usernameField: 'email',
-    passwordField: 'password'
-},
+        usernameField: 'email',
+        passwordField: 'password'
+    },
     function (email, password, done) {
-        UserProfileModel.findOne({ email: email, password: password }, function (err, user) {
+
+        console.log(email+" "+password)
+        UserProfileModel.findOne({email: email, password: password}, function (err, user) {
             if (user != null) {
                 if (err) {
                     return done("Error");
                 } else {
                     return done(null, user);
                 }
-            }else {
+            } else {
                 return done("Error");
             }
         });
@@ -72,23 +75,49 @@ passport.deserializeUser(function (user, done) {
     done(null, user);
 });
 
+app.post("/logout", function (req, res) {
+    var reqUser = req.body;
+    UserProfileModel.findOne({email: reqUser.email}, function (err, userProfile) {
+        if (userProfile != null) {
+            req.session.destroy();
+            res.send(200);
+        }
+
+        else {
+            res.send("Error");
+        }
+    });
+});
 app.post("/login", passport.authenticate('Authentication'), function (req, res) {
     var user = req.user;
-    res.json(user);
+    UserProfileModel.findOne({email: user.email}, function (err, userProfile) {
+        if (userProfile != null) {
+            res.json(userProfile);
+        }
+        else res.send("Error");
+    });
+
 });
 
 app.post("/register", function (req, res) {
 
     var newUserAuth = req.body;
     var newUserAuthObject = new UserProfileModel(newUserAuth);
-
-    newUserAuthObject.save(function (err, user) {
-        if (err) {
-            res.send('error');
+    UserProfileModel.findOne({email: newUserAuth.email}, function (err, userProfile) {
+        if (userProfile != null) {
+            res.send("error");
         }
         else {
-            res.send('ok');
+            newUserAuthObject.save(function (err, user) {
+                if (err) {
+                    res.send('error');
+                }
+                else {
+                    res.send('ok');
+                }
+            })
         }
     });
+
 
 });
