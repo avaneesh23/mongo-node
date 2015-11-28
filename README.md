@@ -3,6 +3,7 @@ Installations required:
 2. WebStorm or any other IDE of your interest from https://www.jetbrains.com/webstorm/download/
 3. MongoDb from https://www.mongodb.org/downloads#production
 4. Run npm install express
+5. start the MongoDB server from C:\Program Files\MongoDB\Server\3.0\bin\mongod.exe
 
 Executing the code on localhost:
 
