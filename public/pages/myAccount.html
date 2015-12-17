@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>WHAM | MyAccount</title>
+    <script src="./script.js"></script>
+    <script src="MyService.js"></script>
+</head>
+<body>
+<div>
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <pre>Firstname: {{firstName}}</pre>
+
+            <pre>Lastname: {{lastName}}</pre>
+
+            <pre>Email: {{email}}</pre>
+
+            <!--
+                <pre>Categories: {{categories}}</pre>
+
+                <pre>WithinRadius: {{withinRadius}}</pre>
+            -->
+            <hr>
+            <div class="container-fluid">
+                <div class="form-horizontal" role="form">
+                    <form>
+                        <div>
+                            <label class="control-label">Preferred Categories:</label><br><br>
+                            <label ng-repeat="category in categories">
+                            <input type="checkbox" name="{{category.name}}" id="{{category.id}}" ng-model="category.checked">
+                            <label for="{{category.id}}">{{category.name | ampersand}}</label>&nbsp;&nbsp;&nbsp;
+                        </label></div>
+                        <br/>
+                        <label class="control-label">Within Radius?</label>
+                        <input type="text" ng-model="withinRadius"/> &nbsp; &nbsp;
+                        <br><br>
+                        <button type="button" class="btn btn-primary" ng-click="update()">Update</button>
+                        <br/><br>
+                        <hr>
+                        <label class="control-label">Change Password</label><br><br>
+                        Old password: <input type="password" ng-model="oldpassword">
+                        <br/><br>
+                        New password: <input type="password" ng-model="newpassword">
+                        <br/><br>
+                        Confirm password: <input type="password" ng-model="confirmpassword">
+                        <br/><br>
+                        <button type="button" class="btn btn-primary" ng-click="updatePassword()">Update password</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
